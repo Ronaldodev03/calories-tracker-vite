@@ -2,8 +2,9 @@
 import { useMemo, Dispatch } from "react";
 import { Activity } from "../types";
 import { categories } from "../data/categories";
-import { PencilSquareIcon, XCircleIcon } from "@heroicons/react/24/outline";
+import { XCircleIcon } from "@heroicons/react/24/outline";
 import { ActivityActions } from "../reducers/activity-reducer";
+import EditButton from "./EditButton";
 
 //props del componente
 type ActivityListProps = {
@@ -65,22 +66,12 @@ export default function ActivityList({
             </div>
 
             <div className="flex gap-5 items-center">
-              <button
-                //con el onclick se llama la action throght el dispatch y se pasa el payload (la info)
-                aria-label="edit button"
-                onClick={() => {
-                  goToFormSection();
-                  return dispatch({
-                    type: "set-activeId",
-                    payload: { id: activity.id },
-                  });
-                }}
-              >
-                <PencilSquareIcon
-                  aria-label="edit button"
-                  className="h-8 w-8 text-gray-800"
-                />
-              </button>
+              {/* hago esto con el boton por la ref que se le está pasando */}
+              <EditButton
+                goToFormSection={goToFormSection}
+                dispatch={dispatch}
+                activity={activity}
+              />
 
               <button
                 //con el onclick se llama la action throght el dispatch y se pasa el payload (la info)
