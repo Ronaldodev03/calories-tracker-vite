@@ -5,6 +5,7 @@ export type ActivityActions =
   | { type: "save-activity"; payload: { newActivity: Activity } } //para salvar actividad nueva
   | { type: "set-activeId"; payload: { id: Activity["id"] } } //para editar
   | { type: "delete-activity"; payload: { id: Activity["id"] } } //para borrar
+  | { type: "save-order"; payload: { newOrder: Activity[] } } //salvar el orden del DnD
   | { type: "restart-app" }; //reset
 
 //type de ts para el initialState
@@ -96,6 +97,14 @@ export const activityReducer = (
       activities: state.activities.filter(
         (activity) => activity.id !== action.payload.id
       ),
+    };
+  }
+
+  //save new order
+  if (action.type === "save-order") {
+    return {
+      ...state,
+      activities: action.payload.newOrder,
     };
   }
 
