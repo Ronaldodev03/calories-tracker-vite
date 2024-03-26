@@ -34,21 +34,16 @@ export default function ActivityList({
 
   //salvar el orden del DnD
   const saveOrder = () => {
-    dispatch({
+    /* dispatch({
       type: "save-order",
       payload: { newOrder: activitiesDnD },
-    });
+    }); */
   };
 
   //updating UI when activities changes
   useEffect(() => {
-    console.log("change");
     /* esto soluciona el problema de la distorsion de la UI en mobile*/
-    const temporizador = setTimeout(() => {
-      setActivitiesDnD(activities);
-    }, 3000);
-
-    return () => clearTimeout(temporizador);
+    //setActivitiesDnD(activities);
   }, [activities]);
 
   return (
