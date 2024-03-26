@@ -1,7 +1,7 @@
 import { Activity } from "../types";
 import { Dispatch } from "react";
 import { ActivityActions } from "../reducers/activity-reducer";
-import { XCircleIcon } from "@heroicons/react/24/outline";
+import { IoIosCloseCircleOutline } from "react-icons/io";
 import { Reorder } from "framer-motion";
 import EditButton from "./EditButton";
 
@@ -10,8 +10,15 @@ type ItemProps = {
   saveOrder: () => void;
   categoryName: (category: Activity["category"]) => string[];
   dispatch: Dispatch<ActivityActions>;
+  goToFormSection: () => void;
 };
-const Item = ({ activity, saveOrder, categoryName, dispatch }: ItemProps) => {
+const Item = ({
+  activity,
+  saveOrder,
+  categoryName,
+  dispatch,
+  goToFormSection,
+}: ItemProps) => {
   return (
     <Reorder.Item
       value={activity}
@@ -35,7 +42,11 @@ const Item = ({ activity, saveOrder, categoryName, dispatch }: ItemProps) => {
 
         <div className="flex gap-5 items-center">
           {/* hago esto con el boton por la ref que se le está pasando */}
-          <EditButton dispatch={dispatch} activity={activity} />
+          <EditButton
+            goToFormSection={goToFormSection}
+            dispatch={dispatch}
+            activity={activity}
+          />
 
           <button
             //con el onclick se llama la action throght el dispatch y se pasa el payload (la info)
@@ -47,7 +58,7 @@ const Item = ({ activity, saveOrder, categoryName, dispatch }: ItemProps) => {
               })
             }
           >
-            <XCircleIcon className="h-8 w-8 text-red-500" />
+            <IoIosCloseCircleOutline size={36} className=" text-red-700" />
           </button>
         </div>
       </div>

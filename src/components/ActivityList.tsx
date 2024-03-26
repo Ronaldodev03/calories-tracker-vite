@@ -10,12 +10,14 @@ import Item from "./Item";
 type ActivityListProps = {
   activities: Activity[];
   dispatch: Dispatch<ActivityActions>;
+  goToFormSection: () => void;
 };
 
 //component
 export default function ActivityList({
   activities,
   dispatch,
+  goToFormSection,
 }: ActivityListProps) {
   const [activitiesDnD, setActivitiesDnD] = useState(activities);
 
@@ -42,12 +44,7 @@ export default function ActivityList({
 
   //updating UI when activities changes
   useEffect(() => {
-    /* esto soluciona el problema de la distorsion de la UI en mobile*/
-    const temporizador = setTimeout(() => {
-      setActivitiesDnD(activities);
-    }, 2000);
-
-    return () => clearTimeout(temporizador);
+    setActivitiesDnD(activities);
   }, [activities]);
 
   return (
@@ -67,6 +64,7 @@ export default function ActivityList({
               saveOrder={saveOrder}
               categoryName={categoryName}
               dispatch={dispatch}
+              goToFormSection={goToFormSection}
             />
           ))}
         </Reorder.Group>
