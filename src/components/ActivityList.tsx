@@ -42,7 +42,12 @@ export default function ActivityList({
 
   //updating UI when activities changes
   useEffect(() => {
-    setActivitiesDnD(activities);
+    /* esto soluciona el problema de la distorsion de la UI en mobile*/
+    const temporizador = setTimeout(() => {
+      setActivitiesDnD(activities);
+    }, 500);
+
+    return () => clearTimeout(temporizador);
   }, [activities]);
 
   return (
