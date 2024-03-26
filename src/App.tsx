@@ -6,6 +6,8 @@ import { activityReducer, initialState } from "./reducers/activity-reducer";
 import ActivityList from "./components/ActivityList";
 import CalorieTracker from "./components/CalorieTracker";
 import { CiSearch } from "react-icons/ci";
+import { FaArrowCircleUp } from "react-icons/fa";
+import { motion } from "framer-motion"; //animation del arrow icon
 
 function App() {
   const [state, dispatch] = useReducer(activityReducer, initialState); // instanciamos el reducer en el App.tsx; useReducer toma 2 parametros, el reducer y el initialState
@@ -24,6 +26,17 @@ function App() {
   // función para desplazarse a la sección referenciada
   const goToFormSection = () => {
     ref.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  // variantes de la animación
+  const variants = {
+    hover: {
+      y: [0, -10, 0], // mueve el elemento arriba y abajo
+      transition: {
+        duration: 1.2, // duración de cada ciclo de la animación
+        repeat: Infinity,
+      },
+    },
   };
 
   return (
@@ -67,6 +80,18 @@ function App() {
           dispatch={dispatch}
         />
       </section>
+      <motion.div
+        className="my-5 sm:my-10 max-w-max mx-auto  "
+        onClick={goToFormSection}
+        variants={variants}
+        whileHover="hover"
+      >
+        <FaArrowCircleUp size={50} className=" text-blue-500" />
+      </motion.div>
+
+      <p className=" pb-5 sm:pb-10 text-center text-slate-500">
+        Drag and drop to reorder list
+      </p>
     </>
   );
 }
