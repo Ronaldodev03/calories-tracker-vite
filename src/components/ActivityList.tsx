@@ -19,29 +19,6 @@ export default function ActivityList({
 }: ActivityListProps) {
   const [activitiesDnD, setActivitiesDnD] = useState(activities);
 
-  const [items, setItems] = useState([
-    {
-      id: 1,
-      body: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iusto, adipisci!",
-    },
-    {
-      id: 2,
-      body: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iusto, adipisci!",
-    },
-    {
-      id: 3,
-      body: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iusto, adipisci!",
-    },
-    {
-      id: 4,
-      body: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iusto, adipisci!",
-    },
-    {
-      id: 5,
-      body: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iusto, adipisci!",
-    },
-  ]);
-
   //function para llevar los numeros de la categoria (comida o ejercicio) al texto "comida" o "ejercicio", ya que sus valores son 1 o 2.
   const categoryName = useMemo(
     () => (category: Activity["category"]) =>
@@ -57,16 +34,20 @@ export default function ActivityList({
 
   //salvar el orden del DnD
   const saveOrder = () => {
-    /* dispatch({
+    dispatch({
       type: "save-order",
       payload: { newOrder: activitiesDnD },
-    }); */
+    });
   };
 
   //updating UI when activities changes
   useEffect(() => {
     /* esto soluciona el problema de la distorsion de la UI en mobile*/
-    //setActivitiesDnD(activities);
+    const temporizador = setTimeout(() => {
+      setActivitiesDnD(activities);
+    }, 2000);
+
+    return () => clearTimeout(temporizador);
   }, [activities]);
 
   return (
@@ -78,17 +59,15 @@ export default function ActivityList({
       {isEmptyActivities ? (
         <p className="text-center my-5">No hay actividades aún...</p>
       ) : (
-        <Reorder.Group values={items} onReorder={setItems}>
-          {items.map((item) => (
-            <Reorder.Item
-              key={item.id}
-              value={item}
-              className=" bg-blue-400 px-2 py-4 text-3xl font-bold text-center relative"
-            >
-              {item.body}
-
-              <div className=" absolute bg-lime-300 -top-4 -left-8 w-20 h-10"></div>
-            </Reorder.Item>
+        <Reorder.Group values={activitiesDnD} onReorder={setActivitiesDnD}>
+          {activitiesDnD.map((activity) => (
+            <Item
+              key={activity.id}
+              activity={activity}
+              saveOrder={saveOrder}
+              categoryName={categoryName}
+              dispatch={dispatch}
+            />
           ))}
         </Reorder.Group>
       )}
