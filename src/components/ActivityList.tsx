@@ -43,7 +43,7 @@ export default function ActivityList({
   //updating UI when activities changes
   useEffect(() => {
     setActivitiesDnD(activities);
-  }, [activities]);
+  }, [activities.length]);
 
   return (
     <>
