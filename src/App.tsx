@@ -9,7 +9,7 @@ import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
 function App() {
   const [state, dispatch] = useReducer(activityReducer, initialState); // instanciamos el reducer en el App.tsx; useReducer toma 2 parametros, el reducer y el initialState
-  const ref = useRef<HTMLInputElement | null>(null);
+  const ref = useRef<HTMLHeadingElement>(null);
 
   //save en LS cada vez que cambien las actidivades (que se añada/borre una)
   useEffect(() => {
