@@ -45,7 +45,7 @@ export default function ActivityList({
     /* esto soluciona el problema de la distorsion de la UI en mobile*/
     const temporizador = setTimeout(() => {
       setActivitiesDnD(activities);
-    }, 500);
+    }, 2000);
 
     return () => clearTimeout(temporizador);
   }, [activities]);
