@@ -71,41 +71,48 @@ export const activityReducer = (
     } else {
       updatedActivities = [...state.activities, action.payload.newActivity]; // actualizo las actividades
     }
-
-    // se retorna el estado actualizado
-    return {
-      ...state, //copia del state
-      activities: updatedActivities, //se actualizan las actividades
-      activeId: "", //se resetea el id que es para editar
-    };
+    setTimeout(() => {
+      // se retorna el estado actualizado
+      return {
+        ...state, //copia del state
+        activities: updatedActivities, //se actualizan las actividades
+        activeId: "", //se resetea el id que es para editar
+      };
+    }, 2000);
   }
 
   //setea un id para editar
   if (action.type === "set-activeId") {
     // se retorna el estado actualizado
-    return {
-      ...state,
-      activeId: action.payload.id,
-    };
+    setTimeout(() => {
+      return {
+        ...state,
+        activeId: action.payload.id,
+      };
+    }, 2000);
   }
 
   //borrar
   if (action.type === "delete-activity") {
     // se retorna el estado actualizado
-    return {
-      ...state,
-      activities: state.activities.filter(
-        (activity) => activity.id !== action.payload.id
-      ),
-    };
+    setTimeout(() => {
+      return {
+        ...state,
+        activities: state.activities.filter(
+          (activity) => activity.id !== action.payload.id
+        ),
+      };
+    }, 2000);
   }
 
   //save new order
   if (action.type === "save-order") {
-    return {
-      ...state,
-      activities: action.payload.newOrder,
-    };
+    setTimeout(() => {
+      return {
+        ...state,
+        activities: action.payload.newOrder,
+      };
+    }, 2000);
   }
 
   //reset app
